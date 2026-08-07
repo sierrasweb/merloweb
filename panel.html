@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Comercial - Sierras Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    /* Variables Modo Claro (Sierras Web) */
+    :root {
+        --primary-color: #0284C7; 
+        --primary-dark: #0369A1;
+        --text-dark: #0F172A;
+        --text-gray: #475569;
+        --bg-light: #F8FAFC;
+        --white: #FFFFFF;
+        --input-bg: #FFFFFF;
+        --border-color: #E2E8F0;
+        --pattern-color: #cbd5e1;
+        --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.3s;
+    }
+
+    /* Variables Modo Oscuro */
+    [data-theme="dark"] {
+        --text-dark: #F8FAFC;
+        --text-gray: #94A3B8;
+        --bg-light: #0F172A;
+        --white: #1E293B;
+        --input-bg: #0F172A;
+        --border-color: #334155;
+        --pattern-color: #334155;
+        --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background-color: var(--bg-light);
+      background-image: radial-gradient(var(--pattern-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: var(--text-dark);
+      height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+    }
+
+    /* Botón Theme Toggle */
+    .theme-toggle {
+        position: absolute; top: 20px; right: 20px;
+        background: var(--white); border: 1px solid var(--border-color); 
+        font-size: 1.2rem; cursor: pointer; padding: 10px; border-radius: 50%; 
+        transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        box-shadow: var(--shadow-sm); color: var(--text-dark);
+    }
+    .theme-toggle:hover { border-color: var(--primary-color); }
+
+    /* Tarjeta Principal */
+    .login-card { 
+      background: var(--white); 
+      width: 90%; 
+      max-width: 380px; 
+      padding: 40px 30px; 
+      border-radius: 16px; 
+      text-align: center; 
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg); 
+      transition: background-color var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    /* Logo Sierras Web */
+    .logo { 
+      font-size: 2rem; 
+      font-weight: 800; 
+      color: var(--text-dark); 
+      text-decoration: none; 
+      letter-spacing: -0.5px; 
+      display: block;
+      margin-bottom: 5px;
+    }
+    .logo span { color: var(--primary-color); }
+
+    .subtitle {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    /* Formularios y Entradas */
+    .input-group { 
+      position: relative; 
+      margin-bottom: 15px; 
+    }
+    .input-group i { 
+      position: absolute; 
+      left: 15px; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      color: var(--text-gray); 
+    }
+    input { 
+      width: 100%; 
+      padding: 14px 14px 14px 45px; 
+      border-radius: 10px; 
+      border: 1px solid var(--border-color); 
+      background-color: var(--input-bg);
+      color: var(--text-dark);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; 
+      transition: all 0.3s;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    input::placeholder { color: var(--text-gray); opacity: 0.7; }
+    
+    /* Botones */
+    .btn { 
+      width: 100%; 
+      padding: 14px; 
+      border: none; 
+      border-radius: 10px; 
+      font-size: 15px; 
+      cursor: pointer; 
+      transition: all 0.3s; 
+      margin-bottom: 12px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none; 
+      font-weight: 600; 
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .btn-primary { 
+      background-color: var(--primary-color); 
+      color: #fff; 
+      box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.3);
+    }
+    .btn-primary:hover { 
+      background-color: var(--primary-dark); 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.2); 
+    }
+    
+    .btn-secondary { 
+      background-color: transparent; 
+      color: var(--text-dark); 
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover { 
+      border-color: var(--primary-color); 
+      color: var(--primary-color);
+    }
+    
+    /* Errores y Secciones */
+    #error { 
+      background: rgba(220, 38, 38, 0.1); 
+      color: #DC2626; 
+      padding: 12px; 
+      border-radius: 8px; 
+      margin-bottom: 20px; 
+      font-size: 0.9rem; 
+      font-weight: 500;
+      display: none; 
+      border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+    #menuSection { display: none; }
+
+    /* Estilo para el icono del botón */
+    .btn i { width: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Cambiar Tema">🌙</button>
+
+<div class="login-card">
+  
+  <div id="loginSection">
+    <div class="logo">Sierras<span>Web</span></div>
+    <div class="subtitle">Portal de Acceso Comercial</div>
+    <div id="error"></div>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" required placeholder="Usuario">
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" required placeholder="Contraseña">
+      </div>
+      <button type="submit" id="loginBtn" class="btn btn-primary">Ingresar al sistema</button>
+    </form>
+  </div>
+
+  <div id="menuSection">
+    <div class="logo">Sierras<span>Web</span></div>
+    <h2 id="negocioNombre" style="margin: 0; font-size: 1.5rem; color: var(--text-dark); font-weight: 800; margin-top: 10px;">Mi Negocio</h2>
+    <p class="subtitle" style="margin-bottom: 25px; margin-top: 5px;">Panel de Gestión Integral</p>
+    
+    <a id="lnkPanel" href="#" target="_top" class="btn btn-primary">
+      <i class="fas fa-chart-line"></i> Panel de Control
+    </a>
+    <a id="lnkVentas" href="#" target="_top" class="btn btn-secondary">
+      <i class="fas fa-cash-register"></i> Gestión de Ventas
+    </a>
+    <a id="lnkSalon" href="#" target="_top" class="btn btn-secondary">
+      <i class="fas fa-chair"></i> Salón de Ventas
+    </a>
+    <a id="lnkHorario" href="#" target="_top" class="btn btn-secondary">
+      <i class="fas fa-clock"></i> Cambio de Horario
+    </a>
+    
+    <button onclick="window.location.reload()" class="btn" style="background: none; border: none; color: var(--text-gray); font-size: 0.85rem; margin-top: 15px; box-shadow: none;">
+      <i class="fas fa-sign-out-alt"></i> Cerrar sesión de forma segura
+    </button>
+  </div>
+</div>
+
+<script>
+  // =========================================================
+  // ¡IMPORTANTE! REEMPLAZA ESTA URL POR LA DE TU APPS SCRIPT
+  // =========================================================
+  const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_DE_DESPLIEGUE/exec';
+
+
+  // --- LÓGICA DEL MODO OSCURO ---
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const htmlElement = document.documentElement;
+
+  const savedTheme = localStorage.getItem('sierras_theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      htmlElement.setAttribute('data-theme', 'dark');
+      themeToggleBtn.innerHTML = '☀️';
+  }
+
+  themeToggleBtn.addEventListener('click', () => {
+      if (htmlElement.getAttribute('data-theme') === 'dark') {
+          htmlElement.removeAttribute('data-theme');
+          localStorage.setItem('sierras_theme', 'light');
+          themeToggleBtn.innerHTML = '🌙';
+      } else {
+          htmlElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('sierras_theme', 'dark');
+          themeToggleBtn.innerHTML = '☀️';
+      }
+  });
+
+
+  // --- LÓGICA DE ACCESO (FETCH HACIA GOOGLE APPS SCRIPT) ---
+  const form = document.getElementById('loginForm');
+  const btn = document.getElementById('loginBtn');
+  const errorDiv = document.getElementById('error');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verificando datos...';
+    errorDiv.style.display = 'none';
+
+    // Capturamos los datos del formulario
+    const formData = new FormData(this);
+    const dataObj = Object.fromEntries(formData.entries());
+
+    // Usamos fetch en lugar de google.script.run
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      // Usamos text/plain para evitar bloqueos CORS por parte de los navegadores
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8', 
+      },
+      body: JSON.stringify(dataObj)
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response.success) {
+        mostrarMenu(response);
+      } else {
+        showError(response.message);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      showError("Error crítico de conexión con el servidor.");
+    });
+  });
+
+  function mostrarMenu(data) {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('menuSection').style.display = 'block';
+    document.getElementById('negocioNombre').innerText = data.negocio;
+    
+    // Asignar URLs a los botones
+    document.getElementById('lnkPanel').href = data.urls.panel || "#";
+    document.getElementById('lnkVentas').href = data.urls.ventas || "#";
+    document.getElementById('lnkSalon').href = data.urls.salon || "#";
+    document.getElementById('lnkHorario').href = data.urls.horario || "#";
+    
+    // Ocultar botones si la URL está vacía
+    if(!data.urls.panel)   document.getElementById('lnkPanel').style.display = 'none';
+    if(!data.urls.ventas)  document.getElementById('lnkVentas').style.display = 'none';
+    if(!data.urls.salon)   document.getElementById('lnkSalon').style.display = 'none';
+    if(!data.urls.horario) document.getElementById('lnkHorario').style.display = 'none';
+  }
+
+  function showError(msg) {
+    errorDiv.innerText = msg;
+    errorDiv.style.display = 'block';
+    btn.disabled = false;
+    btn.innerHTML = 'Ingresar al sistema';
+  }
+</script>
+
+</body>
+</html>
